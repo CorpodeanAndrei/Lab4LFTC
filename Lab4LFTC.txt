@@ -1,0 +1,35 @@
+G = ( N, Σ, P, S )
+S = program
+N = {  decllist, declaration, type1, arraydecl, type, cmpdstmt, stmtlist, stmt, simplstmt, assignstmt, expression, term, factor, iostmt, printing, structstmt, ifstmt, whilestmt, orstmt, condition, relation }
+Σ = { ":", ";", "fn", "(", ")", "bool", "chr", "int", "real", "arr", "[", "]", "start", "stop", "=", "+", "*", "read", "from", "write", "to", "{", "}", "if", "else", "then", "while", "do", "for", "<", "<", "<=", "<>", ">=", ">", "==", "!="
+P={	program ::= decllist ":" cmpdstmt ";"
+	decllist ::= declaration | declaration "," decllist
+	declaration ::= Identifier type ";"
+	type1 ::= "bool" | "chr" | "int" | "real"
+	arraydecl ::= "arr" "[" nr "]" type1
+	type ::=  type1|arraydecl
+	cmpdstmt ::= "start" stmlist "stop"
+	stmtlist ::= stmt | stmt ":" stmtlist
+	stmt ::= simplstmt | structstmt
+	simplstmt ::= assignstmt | iostmt
+	assignstmt ::= Identifier "=" expression
+	expression ::= expression "+" term | term
+	term ::= term "*" factor | factor
+	factor ::= "(" expression ")" | Identifier
+	iostmt ::= "read" space "from" | "write" space "to" space "{" Path "}"
+	printing ::= print "(" Identifier ")"
+	structstmt ::= cmpdstmt | ifstmt | whilestmt
+	ifstmt ::= "if" space "(" condition ")" "then" stmt ["else" stmt]
+	whilestmt ::= "while" condition "do" stmt ";"
+	forstmt ::= "for" space "(" Identifier "=" nr ":" Identifier "<" Identifier ":" Identifier "=" Identifier operator nr ")" structlist ";"
+	condition ::= expression relation expression
+	relation ::= "<" | "<=" | "=" | "<>" | ">=" | ">" | "==" | "!="
+  }
+
+Documentation:
+
+G - represents the definition of the grammar ( N, Σ, P, S )
+S - represents the starting symbol (the syntactical construct of the program)
+N - represents the non-terminal (declaration, statement, expression, term, factor,...)
+Σ - represents the terminals (identifiers, constants, operators, separators, reserved words)
+P - represents the syntactical rules (BNF style)
